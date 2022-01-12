@@ -1,0 +1,385 @@
+definitions:
+  models.Brief:
+    properties:
+      duration:
+        type: integer
+      endAt:
+        type: integer
+      ending:
+        type: string
+      squad:
+        type: string
+    type: object
+  models.Initial:
+    properties:
+      recruitGroup:
+        type: string
+      recruits:
+        items:
+          type: string
+        type: array
+      support:
+        type: string
+    type: object
+  models.JSONResult:
+    properties:
+      code:
+        type: integer
+      data: {}
+      msg:
+        type: string
+    type: object
+  models.Login:
+    properties:
+      uuid:
+        example: 00000000-0000-0000-0000-000000000000
+        type: string
+    type: object
+  models.NewToken:
+    properties:
+      token:
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+        type: string
+    type: object
+  models.Node:
+    properties:
+      capsules:
+        items:
+          type: string
+        type: array
+      collections:
+        items:
+          type: string
+        type: array
+      recruits:
+        items:
+          type: string
+        type: array
+      select:
+        items:
+          type: string
+        type: array
+      shop:
+        $ref: '#/definitions/models.Shop'
+      stage:
+        type: string
+      tickets:
+        items:
+          type: string
+        type: array
+      tools:
+        items:
+          type: string
+        type: array
+      type:
+        type: integer
+      upgrades:
+        items:
+          type: string
+        type: array
+    type: object
+  models.Recruits:
+    properties:
+      name:
+        type: string
+      upgraded:
+        type: boolean
+    type: object
+  models.ReportID:
+    properties:
+      id:
+        example: 6213912d7f21c24ec55377ac
+        type: string
+    type: object
+  models.ReportIDs:
+    properties:
+      id:
+        example:
+        - 6213912d7f21c24ec55377ac
+        - 6213912d7f21c24ec55377aa
+        items:
+          type: string
+        type: array
+    type: object
+  models.Roguelike_Report:
+    properties:
+      brief:
+        $ref: '#/definitions/models.Brief'
+      collections:
+        items:
+          type: string
+        type: array
+      initial:
+        $ref: '#/definitions/models.Initial'
+      mode:
+        type: string
+      recruits:
+        items:
+          $ref: '#/definitions/models.Recruits'
+        type: array
+      theme:
+        type: integer
+      zones:
+        items:
+          $ref: '#/definitions/models.Zone'
+        type: array
+    type: object
+  models.Roguelike_Report_With_ID:
+    properties:
+      brief:
+        $ref: '#/definitions/models.Brief'
+      collections:
+        items:
+          type: string
+        type: array
+      id:
+        type: string
+      initial:
+        $ref: '#/definitions/models.Initial'
+      mode:
+        type: string
+      recruits:
+        items:
+          $ref: '#/definitions/models.Recruits'
+        type: array
+      theme:
+        type: integer
+      zones:
+        items:
+          $ref: '#/definitions/models.Zone'
+        type: array
+    type: object
+  models.Shop:
+    properties:
+      buys:
+        items:
+          $ref: '#/definitions/models.Shop_Buy'
+        type: array
+      inverst:
+        type: integer
+    type: object
+  models.Shop_Buy:
+    properties:
+      collection:
+        type: string
+      cost:
+        type: integer
+    type: object
+  models.Zone:
+    properties:
+      enterZone:
+        type: string
+      nodeList:
+        items:
+          $ref: '#/definitions/models.Node'
+        type: array
+      variations:
+        items:
+          type: string
+        type: array
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: zsf821797423@gmail.com
+    name: YuuinIH
+  description: The api of the IS-LOG.
+  license:
+    name: MIT License
+    url: https://opensource.org/licenses/MIT
+  title: IS-LOG Api
+  version: "1.0"
+paths:
+  /api/v1/report:
+    get:
+      description: Get reports under this account.
+      parameters:
+      - description: order
+        in: query
+        name: order
+        type: string
+      - description: page
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: pagesize
+        in: query
+        name: pagesize
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.JSONResult'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.Roguelike_Report_With_ID'
+                  type: array
+              type: object
+      summary: Get reports under this account.
+      tags:
+      - report
+    post:
+      consumes:
+      - application/json
+      description: Upload a single report.
+      parameters:
+      - description: Report
+        in: body
+        name: report
+        required: true
+        schema:
+          $ref: '#/definitions/models.Roguelike_Report'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.JSONResult'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.ReportID'
+              type: object
+      summary: Upload a single report.
+      tags:
+      - report
+  /api/v1/report/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete report corresponding to ID.
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.JSONResult'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.ReportID'
+              type: object
+      summary: Delete report corresponding to ID.
+      tags:
+      - report
+    get:
+      consumes:
+      - application/json
+      description: Get report corresponding to ID.
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.JSONResult'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.Roguelike_Report_With_ID'
+                  type: array
+              type: object
+      summary: Get report corresponding to ID.
+      tags:
+      - report
+  /api/v1/reports:
+    post:
+      description: Upload multiple reports.
+      parameters:
+      - description: Reports
+        in: body
+        name: report
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/models.Roguelike_Report'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.JSONResult'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.ReportIDs'
+              type: object
+      summary: Upload multiple reports.
+      tags:
+      - report
+  /auth/login:
+    post:
+      consumes:
+      - multipart/form-data
+      - application/json
+      description: Login with UUID,it return a token.
+      parameters:
+      - description: uuid
+        in: body
+        name: uuid
+        required: true
+        schema:
+          $ref: '#/definitions/models.Login'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.JSONResult'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.NewToken'
+              type: object
+      summary: Login with UUID.
+      tags:
+      - auth
+  /auth/uuid:
+    get:
+      description: Generate a new UUID.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.JSONResult'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Login'
+              type: object
+      summary: Get a new uuid.
+      tags:
+      - auth
+securityDefinitions:
+  JWT:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
