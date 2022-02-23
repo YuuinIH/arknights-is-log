@@ -35,7 +35,12 @@ func init() {
 		SERVER.READ_TIMEOUT = time.Duration(c.Section("server").Key("read_timeout").MustInt(60)) * time.Second
 		SERVER.WRITE_TIMEOUT = time.Duration(c.Section("server").Key("write_timeout").MustInt(60)) * time.Second
 	}
-	DATABASE.URI = c.Section("database").Key("uri").String()
+	if databaseuri := os.Getenv("DATABASE_URI"); databaseuri != "" {
+		DATABASE.URI = databaseuri
+	} else {
+		DATABASE.URI = c.Section("database").Key("uri").String()
+	}
+
 	PrivateKey, err = rsa.GenerateKey(rand.Reader, 2048)
 	if err != nil {
 		os.Exit(1)
