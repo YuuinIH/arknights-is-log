@@ -4,7 +4,7 @@ import (
 	"log"
 	"strconv"
 
-	"github.com/YuuinIH/is-log/internal/models"
+	"github.com/YuuinIH/arknights-is-log/internal/models"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/google/uuid"

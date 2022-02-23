@@ -3,7 +3,7 @@ package utils
 import (
 	"time"
 
-	"github.com/YuuinIH/is-log/internal/config"
+	"github.com/YuuinIH/arknights-is-log/internal/config"
 	"github.com/golang-jwt/jwt/v4"
 	u "github.com/google/uuid"
 )
@@ -18,7 +18,7 @@ func GenerateToken(uuid u.UUID) (string, error) {
 		UUID: uuid.String(),
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(3 * time.Hour).Unix(),
-			Issuer:    "is-log",
+			Issuer:    "arknights-is-log",
 		},
 	})
 	ss, err := token.SignedString(config.PrivateKey)

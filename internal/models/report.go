@@ -6,7 +6,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/YuuinIH/is-log/internal/config"
+	"github.com/YuuinIH/arknights-is-log/internal/config"
 	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"

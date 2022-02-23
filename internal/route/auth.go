@@ -1,7 +1,7 @@
 package route
 
 import (
-	"github.com/YuuinIH/is-log/internal/controllers"
+	"github.com/YuuinIH/arknights-is-log/internal/controllers"
 	"github.com/gofiber/fiber/v2"
 )
 

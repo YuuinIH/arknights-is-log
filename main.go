@@ -7,9 +7,9 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 
-	"github.com/YuuinIH/is-log/internal/config"
-	"github.com/YuuinIH/is-log/internal/middleware"
-	"github.com/YuuinIH/is-log/internal/route"
+	"github.com/YuuinIH/arknights-is-log/internal/config"
+	"github.com/YuuinIH/arknights-is-log/internal/middleware"
+	"github.com/YuuinIH/arknights-is-log/internal/route"
 )
 
 var (

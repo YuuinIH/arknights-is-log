@@ -3,8 +3,8 @@ package controllers
 import (
 	"log"
 
-	"github.com/YuuinIH/is-log/internal/models"
-	"github.com/YuuinIH/is-log/internal/utils"
+	"github.com/YuuinIH/arknights-is-log/internal/models"
+	"github.com/YuuinIH/arknights-is-log/internal/utils"
 	"github.com/gofiber/fiber/v2"
 
 	u "github.com/google/uuid"

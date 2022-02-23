@@ -1,8 +1,8 @@
 package route
 
 import (
-	"github.com/YuuinIH/is-log/internal/config"
-	"github.com/YuuinIH/is-log/internal/controllers"
+	"github.com/YuuinIH/arknights-is-log/internal/config"
+	"github.com/YuuinIH/arknights-is-log/internal/controllers"
 	"github.com/gofiber/fiber/v2"
 	jwtware "github.com/gofiber/jwt/v3"
 )

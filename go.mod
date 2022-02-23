@@ -1,4 +1,4 @@
-module github.com/YuuinIH/is-log
+module github.com/YuuinIH/arknights-is-log
 
 go 1.17
 
