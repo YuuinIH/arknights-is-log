@@ -4,8 +4,10 @@ import (
 	"crypto/rsa"
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/logger"
 
 	"github.com/YuuinIH/arknights-is-log/internal/config"
 	"github.com/YuuinIH/arknights-is-log/internal/middleware"
@@ -33,6 +35,16 @@ var (
 // @host  localhost:8080
 func main() {
 	app := fiber.New()
+
+	file, err := os.OpenFile("./is_log.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	if err != nil {
+		log.Fatalf("error opening file: %v", err)
+	}
+
+	defer file.Close()
+	app.Use(logger.New(logger.Config{
+		Output: file,
+	}))
 
 	middleware.FiberMiddleware(app)
 

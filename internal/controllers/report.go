@@ -56,7 +56,6 @@ func AddReport(ctx *fiber.Ctx) error {
 			"data": nil,
 		})
 	} else {
-		log.Println(result)
 		code = models.CREATED
 		return ctx.JSON(fiber.Map{
 			"code": code,
